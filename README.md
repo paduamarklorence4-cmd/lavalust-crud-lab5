@@ -282,3 +282,15 @@ LavaLust Framework is open-source software licensed under the **[MIT License](ht
 - **GitHub Repository:** [https://github.com/ronmarasigan/lavalust](https://github.com/ronmarasigan/lavalust)
 - **Documentation:** [https://lavalust.netlify.app](https://lavalust.netlify.app)
 - **Report an Issue:** [https://github.com/ronmarasigan/lavalust/issues](https://github.com/ronmarasigan/lavalust/issues)
+
+---
+
+## Deployment
+
+This LavaLust project has been deployed by *Padua Mark Lorence* as part of Laboratory Exercise No. 2 (Web Systems and Technologies 2 - III F5 ITE311 2026-2027).
+
+*Live URL:* https://padua-marklorence.onrender.com
+
+*Repository:* https://github.com/paduamarklorence4-cmd/Padua-MarkLorence-Lavalust
+
+*Deployment Stack:* Docker + Render Web Service, connected to GitHub for automatic deployment on push.
