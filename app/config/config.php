@@ -79,7 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+$config['base_url'] = 'http://127.0.0.1/myproject/public/';
 
 /*
 |--------------------------------------------------------------------------
@@ -348,4 +348,13 @@ $config['csrf_token_name']         = 'csrf_test_name';
 $config['csrf_cookie_name']        = 'csrf_cookie_name';
 $config['csrf_expire']             = 7200;
 $config['csrf_regenerate']         = FALSE;
+/*
+|--------------------------------------------------------------------
+| Middleware Config
+|--------------------------------------------------------------------
+*/
+$middleware_file = APP_DIR . 'config/middleware.php';
+if (file_exists($middleware_file)) {
+    require_once($middleware_file);
+}
 ?>
