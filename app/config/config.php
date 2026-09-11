@@ -79,8 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] = 'http://localhost/myproject/public/';
-
+$config['base_url'] = getenv('BASE_URL') ?: 'http://localhost/myproject/public/';
 
 /*
 |--------------------------------------------------------------------------
