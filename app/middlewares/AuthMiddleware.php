@@ -9,7 +9,7 @@ class AuthMiddleware
         }
 
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /myproject/public/index.php/login');
+           header('Location: ' . site_url('login'));
             exit;
         }
 
