@@ -48,14 +48,21 @@ $router->get('/', 'Welcome::index');
 $router->get('/student', 'StudentController::index');
 $router->get('/student/profile', 'StudentController::profile')->middleware('StudentMiddleware');
 $router->get('/users', 'UsersController::index');
-$router->get('/login', 'AuthController::login');
-$router->post('/login', 'AuthController::login');
-$router->get('/logout', 'AuthController::logout');
-$router->get('/products', 'ProductController::index')->middleware('AuthMiddleware');
-$router->get('/products/create', 'ProductController::create')->middleware('AuthMiddleware');
-$router->post('/products/create', 'ProductController::create')->middleware('AuthMiddleware');
+// Auth API
+$router->post('/auth/login', 'AuthController::login');
+$router->post('/auth/logout', 'AuthController::logout');
+$router->post('/auth/refresh', 'AuthController::refresh');
 
-$router->get('/products/edit/{id}', 'ProductController::edit')->middleware('AuthMiddleware');
-$router->post('/products/edit/{id}', 'ProductController::edit')->middleware('AuthMiddleware');
-
-$router->get('/products/delete/{id}', 'ProductController::delete')->middleware('AuthMiddleware');
+// Product API (protektado ng JWT sa controller)
+$router->get('/products', 'ProductController::index');
+$router->get('/products/{id}', 'ProductController::show');
+$router->post('/products', 'ProductController::store');
+$router->put('/products/{id}', 'ProductController::update');
+$router->delete('/products/{id}', 'ProductController::delete');
+// Migration routes
+$router->get('/create-migration/{migration_class}', 'MigrationController::create_migration');
+$router->get('/migrate', 'MigrationController::migrate');
+$router->get('/rollback', 'MigrationController::rollback');
+$router->get('/rollback-all', 'MigrationController::rollback_all');
+$router->get('/refresh', 'MigrationController::refresh');
+$router->get('/status', 'MigrationController::status');

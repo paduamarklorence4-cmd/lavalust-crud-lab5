@@ -6,39 +6,43 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->call->library('api');
     }
 
     public function login()
     {
-        if ($this->io->method() === 'post') {
-            $usersModel = $this->call->model('UsersModel');
-            $username = $this->io->post('username');
-            $password = $this->io->post('password');
+        $input    = $this->api->body();
+        $username = trim($input['username'] ?? '');
+        $password = $input['password'] ?? '';
 
-            $user = $usersModel->find_by('username', $username);
-
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                redirect('products');
-                return;
-            }
-
-            $data['error'] = 'Invalid username or password.';
-            $this->call->view('login_view', $data);
-            return;
+        if ($username === '' || $password === '') {
+            $this->api->respond_error('Username and password are required', 422);
         }
 
-        $this->call->view('login_view');
+        $usersModel = $this->call->model('UsersModel');
+        $user = $usersModel->find_by('username', $username);
+
+        if ($user && password_verify($password, $user['password'])) {
+            $tokens = $this->api->issue_tokens([
+                'id'   => $user['id'],
+                'role' => $user['role'] ?? 'user',
+            ]);
+            $this->api->respond($tokens);
+        }
+
+        $this->api->respond_error('Invalid username or password', 401);
     }
 
     public function logout()
     {
-        session_unset();
-        session_destroy();
-        redirect('login');
+        $input = $this->api->body();
+        $this->api->revoke_refresh_token($input['refresh_token'] ?? '');
+        $this->api->respond(['message' => 'Logged out']);
+    }
+
+    public function refresh()
+    {
+        $input = $this->api->body();
+        $this->api->refresh_access_token($input['refresh_token'] ?? '');
     }
 }

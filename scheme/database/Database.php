@@ -267,6 +267,11 @@ class Database {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
         );
+        $ca_file = APP_DIR . 'config/ca.pem';
+        if (file_exists($ca_file)) {
+            $options[PDO::MYSQL_ATTR_SSL_CA] = $ca_file;
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
 
         try {
             $this->db = new PDO($dsn, $username, $password, $options);
