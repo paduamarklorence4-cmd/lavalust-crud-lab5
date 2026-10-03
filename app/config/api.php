@@ -75,7 +75,7 @@ $config['refresh_token_expiration'] = 604800;
 | Used for Securing endpoint
 |
 */
-$config['jwt_secret'] = getenv('JWT_SECRET') ?: 'local-dev-secret-change-me';
+$config['jwt_secret'] = getenv('JWT_SECRET') ?: 'local-dev-secret-change-me-0123456789';
 
 /*
 |--------------------------------------------------------------------------
