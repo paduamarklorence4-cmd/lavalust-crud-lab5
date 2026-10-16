@@ -1,0 +1,12 @@
+{
+    "name": "padua/lavalust-lab6",
+    "authors": [
+        {
+            "name": "Mark lorence Padua",
+            "email": "paduamarklorence4@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^7.2"
+    }
+}
